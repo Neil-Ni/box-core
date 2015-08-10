@@ -2,7 +2,7 @@
   "name": "box-core",
   "version": "0.0.1",
   "description": "Box API Wrapper",
-  "main": "index.js",
+  "main": "./src/box.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec"
   },

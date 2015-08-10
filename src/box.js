@@ -1,5 +1,5 @@
-'use strict';
-
+"use strict";
+var rp = require('request-promise');
 var Box, box, ref, func, method;
 
 Box = (function Box() {
@@ -7,16 +7,37 @@ Box = (function Box() {
     this.options = options;
   }
 
-  Box.prototype.request = function(verb, url, data, cb) {
-    cb(verb + url + data);
+  Box.prototype.request = function(verb, uri, data) {
+    var options = {
+      uri : this._options("apiRoot") + uri,
+      method : verb,
+      headers: {
+        Authorization: this._options("token")
+      }
+    };
+    if (data) {
+      options.json = data;
+    }
+    return rp(options);
   };
 
-  Box.prototype.get = function(url, data, cb) {
-    return this.request("GET", url, null, cb);
+  Box.prototype.get = function(uri, data) {
+    return this.request("GET", uri, null);
   };
 
-  Box.prototype.post = function(url, data, cb) {
-    return this.request("POST", url, data, cb);
+  Box.prototype.post = function(uri, data) {
+    return this.request("POST", uri, data);
+  };
+
+  Box.prototype._options = function(optName) {
+    switch (optName) {
+      case "token":
+        return "Bearer " + process.env.BOX_TOKEN;
+      case "apiRoot":
+        return "https://api.box.com/2.0";
+      default:
+        return null;
+    }
   };
 
   return Box;

@@ -1,6 +1,6 @@
 {
   "name": "box-core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Box API Wrapper",
   "main": "./src/box.js",
   "scripts": {

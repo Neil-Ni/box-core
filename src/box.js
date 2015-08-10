@@ -32,9 +32,9 @@ Box = (function Box() {
   Box.prototype._options = function(optName) {
     switch (optName) {
       case "token":
-        return "Bearer " + process.env.BOX_TOKEN;
+        return this.options["token"] || ("Bearer " + process.env.BOX_TOKEN);
       case "apiRoot":
-        return "https://api.box.com/2.0";
+        return this.options["apiRoot"] || "https://api.box.com/2.0";
       default:
         return null;
     }
